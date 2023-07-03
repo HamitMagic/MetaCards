@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './pages.module.css'
 import { RoomID } from '../mobX/store';
 import Modal from './modal/Modal';
@@ -6,10 +6,13 @@ import { Link } from 'react-router-dom';
 import ACTIONS from '../socket/actions';
 import socket from '../socket';
 import { useRoomID } from '../hooks/useRoom';
+import decks from "../data/decks.json" 
 
 function Header() {
     const [remoteShow, setRemoteShow] = useState(false);
-    const rootNode = useRef();
+    const [deckShow, setDeckShow] = useState(false);
+    const [settingsShow, setSettingsShow] = useState(false);
+    const [fullScreen, setFullScreen] = useState(true);
 
     useEffect(() => {
         socket.on(ACTIONS.SHARE_ROOMS, () => {
@@ -17,22 +20,46 @@ function Header() {
             RoomID.setRoom(room);
         })
 
-    }, [])
+    }, []);
+
+    async function handleFullScreen() {
+        const el = document.documentElement;
+        if (fullScreen) {
+            if (el.requestFullscreen) await el.requestFullscreen();
+            else if (el.webkikRequestFullscreen) await el.webkikRequestFullscreen();
+            else if (el.msRequestFullscreen) await el.msRequestFullscreen();
+        }
+        else {
+            if (document.exitFullscreen) {
+                await document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                await document.webkitExitFullscreen();
+            }
+        }
+    };
 
     function showModal(event, arrg) {
         event.stopPropagation();
         event.preventDefault()
 
-        if (event.target.className === classes.modalActive || event.target.className === classes.modalWindow) return;
-
+        if (event.target.className === classes.modalActive 
+            || event.target.className === classes.modalWindow
+            || event.target.className === classes.title) {
+                return
+        };
         switch (arrg) {
             case 'remote':
                 useRoomID();
                 setRemoteShow(!remoteShow);
                 break;
+            case 'setDeck':
+                setDeckShow(!deckShow)
+                break;
+            case 'settings':
+                setSettingsShow(!settingsShow)
+                break;
             default:
-                useRoomID();
-                console.log(111);
+                console.log('Ой что-то пошло не так как ожидалось((');
         } 
         
     }
@@ -53,7 +80,7 @@ function Header() {
                     </button>
                 </Link>
                 <div>
-                    <button>
+                    <button onClick={(e) => showModal(e, 'setDeck')}>
                         <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path 
                                 fillRule="evenodd" 
@@ -100,7 +127,10 @@ function Header() {
                                 strokeMiterlimit="10" />
                         </svg>
                     </button>
-                    <button>
+                    <button onClick={() => {
+                        setFullScreen(!fullScreen);
+                        handleFullScreen();
+                    }}>
                         <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M33 8H40V15" stroke="#343641" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             <path d="M17 40H8V31" stroke="#343641" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -108,7 +138,7 @@ function Header() {
                             <path d="M8 15V8H17" stroke="#343641" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                     </button>
-                    <button>
+                    <button onClick={(e) => showModal(e, 'settings')}>
                         <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path 
                                 d="M24 32.2499C28.5563 32.2499 32.2499 28.5563 32.2499 24C32.2499 19.4436 28.5563 15.75 24 15.75C19.4436 15.75 15.75 19.4436 15.75 24C15.75 28.5563 19.4436 32.2499 24 32.2499Z" 
@@ -126,7 +156,11 @@ function Header() {
                     </button>
                 </div>
             </header>
-            {remoteShow && <Modal cb={showModal} title='Создан удаленный сеанс' text={RoomID.room} />}
+            {remoteShow && <Modal cb={showModal} title='Создан удаленный сеанс' text={RoomID.room} id='remote' />}
+            {deckShow && <Modal cb={showModal} title='Выберите колоду карт' text={decks} id='setDeck' />}
+            {settingsShow && <Modal cb={showModal} title='Настройки' text='В разработке' id='settings' />}
+
+            
         </>
     );
 }

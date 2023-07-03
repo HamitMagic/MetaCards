@@ -120,6 +120,7 @@ export default function useWebRTC(roomID) {
             .catch((err) => console.error(err));
 
         return () => {
+            console.log(lockalMediaStream.current)
             lockalMediaStream.current.getTracks().forEach(track => track.stop());
             socket.emit(ACTIONS.LEAVE);
         }

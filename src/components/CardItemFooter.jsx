@@ -5,13 +5,13 @@ import classes from '../pages/pages.module.css';
 
 
 
-function CardItemFooter({isNumbersShown, card, link, cb, index, className}) {
+function CardItemFooter({isNumbersShown, card, cb, index}) {
     return (
-        <div >
-            <div className={classes.index}>{isNumbersShown ? index : ' '}</div>
+        <div className={classes.imgContainer}>
+            <div className={classes.index}>{isNumbersShown ? index : null}</div>
             <img 
-                src={DeckOfCards.isShown ? `${link}${card.id}.jpg` : `${link}${card.back}`} 
-                onClick={(e) => cb(e, card, link)} 
+                src={DeckOfCards.isShown ? `${card.src}${card.id}.jpg` : `${card.src}${card.back}`} 
+                onClick={(e) => cb(e, card, card.src)} 
                 className={classes.cardItem}
             />
         </div>

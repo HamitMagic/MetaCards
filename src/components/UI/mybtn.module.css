@@ -4,4 +4,8 @@
     margin-right: 8px;
     background: none;
     background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
 }
