@@ -14,7 +14,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path='*' element={<NotFound />} />
-        <Route path='/room/:id' element={<Video />} />
+        <Route path='/video' element={<Video />} />
+        <Route path='/:id' element={<Video />} />
 
       </Routes>
     </BrowserRouter>
