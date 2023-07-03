@@ -1,0 +1,17 @@
+.svg {
+    border-radius: 50%;
+    background-color: white;
+    padding: 2px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+
+.close {
+    right: 0;
+}
+
+.turn {
+    left: 0;
+}
