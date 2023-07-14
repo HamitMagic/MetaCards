@@ -1,8 +1,8 @@
 import React from 'react';
 import classes from '../pages.module.css';
-import { RoomID } from '../../mobX/store';
 import CopyModal from '../../components/CopyModal';
 import SelectDeck from '../../components/SelectDeck';
+import { observer } from 'mobx-react';
 
 
 function Modal(props) {
@@ -17,13 +17,13 @@ function Modal(props) {
                     <h2 className={classes.title}>
                         {props.title}
                     </h2>
-                    {RoomID.room === props.text && <CopyModal text={props.text} />}
-                    {Array.isArray(props.text) && <SelectDeck data={props.text} />}
-                    {typeof(props.text) === 'string' && RoomID.room !== props.text && props.text}
+                    {props.id === 'remote' && <CopyModal text={props.text} />}
+                    {props.id === 'setDeck' && <SelectDeck data={props.text} />}
+                    {props.id === 'settings' && props.text}
                 </div>
             </div>
         </div>
     );
 }
 
-export default Modal;
+export default observer(Modal);

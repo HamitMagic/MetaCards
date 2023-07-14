@@ -3,15 +3,20 @@
     background-color: white;
     padding: 2px;
     cursor: pointer;
-    position: absolute;
     top: 0;
     z-index: 1;
 }
 
 .close {
+    position: absolute;
     right: 0;
 }
 
 .turn {
+    position: absolute;
     left: 0;
+}
+
+.resize {
+    cursor: nw-resize;
 }

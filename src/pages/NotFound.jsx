@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react';
 import React from 'react';
 
 function NotFound() {
@@ -8,4 +9,4 @@ function NotFound() {
     );
 }
 
-export default NotFound;
+export default observer(NotFound);

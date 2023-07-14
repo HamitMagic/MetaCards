@@ -1,15 +1,18 @@
 import { createServer } from "http";
 import { Server } from "socket.io";
-const httpServer = createServer();
-const io = new Server(httpServer)
-
 import path from 'path';
+import { fileURLToPath } from 'url';
 import express from 'express';
-const app = express();
 import { version, validate } from 'uuid';
-
 import ACTIONS from './src/socket/actions.js';
-const PORT = process.env.PORT || 5050;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const httpServer = createServer();
+const io = new Server(httpServer);
+const app = express();
+
+const PORT = process.env.PORT || 3001;
 
 function getClientRooms() {
     const {rooms} = io.sockets.adapter;
@@ -91,6 +94,14 @@ io.on('connection', socket => {
 
 })
 
+const publicPath = path.join(__dirname, 'dist');
+
+app.use(express.static(publicPath));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(publicPath, 'index.html'));
+});
+
 httpServer.listen(PORT, () => {
-    console.log('server began');
+    console.log('server began at port:', PORT);
 })
