@@ -36,7 +36,7 @@ function CardFooter({toMain}) {
                                 index={index+1} 
                                 key={`${card.src}-${card.id}`} 
                                 card={card} 
-                                cb={toMain} 
+                                cb={toMain}
                             />
                         )
                     })}

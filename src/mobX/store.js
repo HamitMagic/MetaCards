@@ -8,23 +8,9 @@ import {EMOTIONS} from '../data/food.body.emotions/emotions/cards/data';
 
 configure({enforceActions: 'observed'})
 
-class Room {
-    room = '';
-
-    constructor() {
-        makeAutoObservable(this);
-    }
-
-    setRoom(roomID) {
-        this.room = roomID;
-    }
-}
-export const RoomID = new Room();
-
 class Cards {
     // id: isShown: src(добавляется)
     cards = [];
-    link = 'src/data/wings/cards/';
     isShown = false;
 
     constructor() {
@@ -127,7 +113,6 @@ class SelectedCardItems {
     }
 
     addCard(card) {
-        console.log(card.id, card.src)
         this.cards = [...this.cards, card];
     }
 }

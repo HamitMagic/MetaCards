@@ -11,7 +11,7 @@ function CardItemFooter({isNumbersShown, card, cb, index}) {
             <div className={classes.index}>{isNumbersShown ? index : null}</div>
             <img 
                 src={DeckOfCards.isShown ? `${card.src}${card.id}.jpg` : `${card.src}${card.back}`} 
-                onClick={(e) => cb(e, card, card.src)} 
+                onClick={(e) => cb(e, card)} 
                 className={classes.cardItem}
             />
         </div>

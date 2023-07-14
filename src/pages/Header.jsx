@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import classes from './pages.module.css'
-import { RoomID } from '../mobX/store';
 import Modal from './modal/Modal';
 import { Link } from 'react-router-dom';
 import ACTIONS from '../socket/actions';
 import socket from '../socket';
-import { useRoomID } from '../hooks/useRoom';
 import decks from "../data/decks.json" 
+import { observer } from 'mobx-react';
+import { v4 } from 'uuid';
 
 function Header() {
+    const [roomID, setRoomID] = useState(v4());
     const [remoteShow, setRemoteShow] = useState(false);
     const [deckShow, setDeckShow] = useState(false);
     const [settingsShow, setSettingsShow] = useState(false);
@@ -16,10 +17,8 @@ function Header() {
 
     useEffect(() => {
         socket.on(ACTIONS.SHARE_ROOMS, () => {
-            const room = useRoomID();
-            RoomID.setRoom(room);
+            if (!roomID) setRoomID(v4());
         })
-
     }, []);
 
     async function handleFullScreen() {
@@ -49,7 +48,7 @@ function Header() {
         };
         switch (arrg) {
             case 'remote':
-                useRoomID();
+                setRoomID(v4());
                 setRemoteShow(!remoteShow);
                 break;
             case 'setDeck':
@@ -156,7 +155,7 @@ function Header() {
                     </button>
                 </div>
             </header>
-            {remoteShow && <Modal cb={showModal} title='Создан удаленный сеанс' text={RoomID.room} id='remote' />}
+            {remoteShow && <Modal cb={showModal} title='Создан удаленный сеанс' text={roomID} id='remote' />}
             {deckShow && <Modal cb={showModal} title='Выберите колоду карт' text={decks} id='setDeck' />}
             {settingsShow && <Modal cb={showModal} title='Настройки' text='В разработке' id='settings' />}
 
@@ -164,4 +163,4 @@ function Header() {
         </>
     );
 }
-export default Header;
+export default observer(Header);

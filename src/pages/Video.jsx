@@ -1,24 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import useWebRTC, { LOCKAL_VIDEO } from '../hooks/useWebRTC';
 import classes from '../pages/pages.module.css'
 import { DeckOfCards, SelectedCards } from '../mobX/store';
 import CardItemContainer from '../components/CardItemContainer';
 import CardFooter from '../components/CardFooter';
+import { observer } from 'mobx-react';
+import useWebRTC, { LOCAL_VIDEO } from '../hooks/useWebRTC';
 
 function Video() {
     const {id: roomID} = useParams();
-    const {clients, provideMediRef} = useWebRTC(roomID)
-    // console.log(clients)
+    const [clients, provideMediaRef] = useWebRTC(roomID)
+    const [zIndex, setZindex] = useState(0);
+    const [position, setPosition] = useState(-150);
+    const [step, setStep] = useState(20);
 
     useEffect(() => {
-        DeckOfCards.setCards('wings');
+        DeckOfCards.setCards('taro');
     }, [])
 
-    function toMain(e, card, src) {
+    function toMain(e, card) {
         e.preventDefault();
-        SelectedCards.addCard({...card, src, isShown: DeckOfCards.isShown})
+        SelectedCards.addCard({...card, isShown: DeckOfCards.isShown})
         DeckOfCards.removeCard(card);
+        setZindex(zIndex + 1);
+        setPosition((state) => {
+            if (state > 1000) {
+                setStep(step  + 20)
+                return step;
+            };
+            return state + 150;
+        })
     }
 
     return (
@@ -29,7 +40,10 @@ function Video() {
                         return (
                             <CardItemContainer 
                                 key={`${card.src}-${card.id}`} 
-                                card={card} 
+                                card={card}
+                                zInd={zIndex}
+                                setZind={setZindex}
+                                position={position}
                             />
                         )
                     }))}
@@ -39,24 +53,24 @@ function Video() {
                 />
             </div>
             <div className={classes.video}>
-                {Array.from(clients).map((clientID) => {
-                    return (
-                            <video 
-                                width={clientID === LOCKAL_VIDEO ? '320' : '320'}
-                                height={clientID === LOCKAL_VIDEO ? '240' : '240'}
-                                key={clientID}
-                                autoPlay
-                                playsInline
-                                muted={clientID === LOCKAL_VIDEO}
-                                ref={
-                                    instance => provideMediRef(clientID, instance)
-                                }
-                            />
-                    )
-                })}
+                {Array.from(clients).map(clientID => (
+                    <>
+                        <video
+                            key={clientID}
+                            className={clientID === LOCAL_VIDEO ? classes.local : classes.remote}
+                            width={clientID === LOCAL_VIDEO ? '96' : '320'}
+                            height={clientID === LOCAL_VIDEO ? '54' : '180'}
+                            autoPlay
+                            playsInline
+                            muted={clientID === LOCAL_VIDEO}
+                            ref={(instance) => provideMediaRef(clientID, instance)}
+                        />
+                    </>
+                ))}
+                
             </div>
         </>
     );
 }
 
-export default Video;
+export default observer(Video);

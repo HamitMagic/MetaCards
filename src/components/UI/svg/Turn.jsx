@@ -1,9 +1,10 @@
 import React from 'react';
 import classes from './svg.module.css';
 
-function Turn({cb}) {
+function Turn({cb, id}) {
     return (
         <svg 
+            id={id}
             className={`${classes.svg} ${classes.turn}`}
             onClick={() => cb()}
             width="16" 
