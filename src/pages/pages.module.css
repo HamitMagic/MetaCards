@@ -128,7 +128,7 @@ h1 {
     min-height: 64vh;
     max-height: 64vh;
     flex-flow: row wrap;
-    overflow-y: auto;
+    overflow-y: hidden;
     position: relative;
 }
 

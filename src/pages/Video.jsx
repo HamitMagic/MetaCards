@@ -6,6 +6,7 @@ import CardItemContainer from '../components/CardItemContainer';
 import CardFooter from '../components/CardFooter';
 import { observer } from 'mobx-react';
 import useWebRTC, { LOCAL_VIDEO } from '../hooks/useWebRTC';
+import { v4 } from 'uuid';
 
 function Video() {
     const {id: roomID} = useParams();
@@ -27,7 +28,7 @@ function Video() {
             if (state > 1000) {
                 setStep(step  + 20)
                 return step;
-            };
+            }
             return state + 150;
         })
     }

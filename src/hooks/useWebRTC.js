@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import useStateWithCallBack from "./useStateWithCallBack";
-import socket from "../socket";
+import socket from "../socket/index";
 import ACTIONS from "../socket/actions";
 
 export const LOCAL_VIDEO = 'LOCAL_VIDEO';
@@ -38,7 +38,6 @@ export default function useWebRTC(roomID) {
     const addNewClient = useCallback((newClient, cb) => {
         updateClients(list => {
             if (!Array.from(list).includes(newClient)) {
-                console.log('added client')
                 return [...list, newClient];
             }
             return list;
@@ -51,7 +50,6 @@ export default function useWebRTC(roomID) {
             if (peerID in peerConnections.current) {
                 return console.warn(`Already connected to peer ${peerID}`);
             }
-            console.log(peerID)
             peerConnections.current[peerID] = new RTCPeerConnection(servers);
 
             peerConnections.current[peerID].onicecandidate = event => {
@@ -200,9 +198,9 @@ export default function useWebRTC(roomID) {
     }, [roomID]);
 
 
-    const provideMediRef = useCallback((id, node) => {
+    const provideMediaRef = useCallback((id, node) => {
         peerMediaElements.current[id] = node;
     });
 
-    return [clients, provideMediRef];
+    return [clients, provideMediaRef];
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DeckOfCards, SelectedCards } from '../mobX/store';
 import classes from './pages.module.css';
 import CardItemContainer from '../components/CardItemContainer';
@@ -25,7 +25,7 @@ function Home() {
             if (state > 1000) {
                 setStep(step  + 20)
                 return step;
-            };
+            }
             return state + 150;
         })
     }

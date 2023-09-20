@@ -8,25 +8,35 @@
         "id": "wings",
         "link": "src/data/wings/cards/",
         "alt": "Карты 'Крылья'"
-
     },
     {
         "id": "islamToday",
         "link": "src/data/islamToday/cards/",
-        "alt": "Карты '????????????'"
-
-
+        "alt": "Карты 'Мубарак'"
     },
     {
         "id": "emotions",
         "link": "src/data/food.body.emotions/emotions/cards/",
         "alt": "Карты 'Эмоции'"
-
     },
     {
         "id": "food body",
         "link": "src/data/food.body.emotions/foodBody/cards/",
         "alt": "Карты 'Еда и Тело'"
-
+    },
+    {
+        "id": "my inside world",
+        "link": "src/data/insideWorld/cards/",
+        "alt": "Карты 'Мой Внутренний Мир'"
+    },
+    {
+        "id": "oracul of ful moon",
+        "link": "src/data/fullMoon/cards/",
+        "alt": "Карты 'Оракул Полной Луны'"
+    },
+    {
+        "id": "rock decision",
+        "link": "src/data/rockDecision/cards/",
+        "alt": "Карты 'Судьбоностные решения'"
     }
 ]
