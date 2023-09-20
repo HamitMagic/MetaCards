@@ -6,7 +6,6 @@ import {INSIDE_WORLD} from '../data/insideWorld/cards/data';
 import {FOOD_BODY} from '../data/food.body.emotions/foodBody/cards/data';
 import {EMOTIONS} from '../data/food.body.emotions/emotions/cards/data';
 import { FULL_MOON } from "../data/fullMoon/cards/data";
-import { DECISIONS } from "../data/rockDecision/cards/data";
 
 
 configure({enforceActions: 'observed'})
@@ -48,11 +47,6 @@ class Cards {
             case 'taro':
                 this.cards = TARO;
                 this.cards.map(card => card.src = 'src/data/taro/cards/');
-                this.cards = this.filterCards();
-                break;
-            case 'rock decision':
-                this.cards = DECISIONS;
-                this.cards.map(card => card.src = 'src/data/rockDecision/cards/');
                 this.cards = this.filterCards();
                 break;
             case 'islamToday':
