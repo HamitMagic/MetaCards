@@ -2,8 +2,10 @@ import { makeAutoObservable, configure } from "mobx";
 import {WINGS} from '../data/wings/cards/data';
 import {TARO} from '../data/taro/cards/data';
 import {ISLAM_TODAY} from '../data/islamToday/cards/data';
+import {INSIDE_WORLD} from '../data/insideWorld/cards/data';
 import {FOOD_BODY} from '../data/food.body.emotions/foodBody/cards/data';
 import {EMOTIONS} from '../data/food.body.emotions/emotions/cards/data';
+import { FULL_MOON } from "../data/fullMoon/cards/data";
 
 
 configure({enforceActions: 'observed'})
@@ -30,7 +32,10 @@ class Cards {
 
     setIsShown() {
         this.isShown = !this.isShown;
-        this.cards = this.cards.map(card => card.isShown = this.isShown);
+        this.cards = this.cards.map(card => {
+            card.isShown = this.isShown;
+            return card;
+        });
     }
 
     setLink(str) {
@@ -59,6 +64,16 @@ class Cards {
                 this.cards.map(card => card.src = 'src/data/food.body.emotions/emotions/cards/');
                 this.cards = this.filterCards();
                 break;
+            case 'my inside world':
+                this.cards = INSIDE_WORLD;
+                this.cards.map(card => card.src = 'src/data/insideWorld/cards/');
+                this.cards = this.filterCards();
+                break;
+            case 'oracul of ful moon':
+                this.cards = FULL_MOON;
+                this.cards.map(card => card.src = 'src/data/fullMoon/cards/');
+                this.cards = this.filterCards();
+                break;
             default:
                 this.cards = WINGS;
                 this.cards.map(card => card.src = 'src/data/wings/cards/');
@@ -76,10 +91,6 @@ class Cards {
 
     removeCard(newCard) {
         this.cards = this.cards.filter(card => card.id !== newCard.id);
-    }
-
-    setIsShown() {
-        this.isShown = !this.isShown;
     }
 
     getIsShown() {

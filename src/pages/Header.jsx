@@ -35,7 +35,7 @@ function Header() {
                 await document.webkitExitFullscreen();
             }
         }
-    };
+    }
 
     function showModal(event, arrg) {
         event.stopPropagation();
@@ -45,7 +45,7 @@ function Header() {
             || event.target.className === classes.modalWindow
             || event.target.className === classes.title) {
                 return
-        };
+        }
         switch (arrg) {
             case 'remote':
                 setRoomID(v4());
