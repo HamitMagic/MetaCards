@@ -57,7 +57,7 @@ function Video() {
                 {Array.from(clients).map(clientID => (
                     <>
                         <video
-                            key={clientID}
+                            key={v4()}
                             className={clientID === LOCAL_VIDEO ? classes.local : classes.remote}
                             width={clientID === LOCAL_VIDEO ? '96' : '320'}
                             height={clientID === LOCAL_VIDEO ? '54' : '180'}
