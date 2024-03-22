@@ -14,7 +14,7 @@ function CopyModal(props) {
     return (
         <>
             <Link to={`${props.text}`} >В комнату</Link>
-            <button onClick={(e) => copy(e)}>скопировать ссылку</button>
+            <button onClick={copy}>скопировать ссылку</button>
         </>
     );
 }

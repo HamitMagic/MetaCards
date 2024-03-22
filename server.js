@@ -12,7 +12,7 @@ const httpServer = createServer();
 const io = new Server(httpServer);
 const app = express();
 
-const PORT = process.env.PORT || 3001;
+const PORT = 3001;
 
 function getClientRooms() {
     const {rooms} = io.sockets.adapter;
