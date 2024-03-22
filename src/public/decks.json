@@ -1,37 +1,37 @@
 [
     {
         "id": "taro",
-        "link": "src/data/taro/cards/",
+        "link": "src/public/taro/cards/",
         "alt": "Карты 'Таро'"
     },
     {
         "id": "wings",
-        "link": "src/data/wings/cards/",
+        "link": "src/public/wings/cards/",
         "alt": "Карты 'Крылья'"
     },
     {
         "id": "islamToday",
-        "link": "src/data/islamToday/cards/",
+        "link": "src/public/islamToday/cards/",
         "alt": "Карты 'Мубарак'"
     },
     {
         "id": "emotions",
-        "link": "src/data/food.body.emotions/emotions/cards/",
+        "link": "src/public/food.body.emotions/emotions/cards/",
         "alt": "Карты 'Эмоции'"
     },
     {
         "id": "food body",
-        "link": "src/data/food.body.emotions/foodBody/cards/",
+        "link": "src/public/food.body.emotions/foodBody/cards/",
         "alt": "Карты 'Еда и Тело'"
     },
     {
         "id": "my inside world",
-        "link": "src/data/insideWorld/cards/",
+        "link": "src/public/insideWorld/cards/",
         "alt": "Карты 'Мой Внутренний Мир'"
     },
     {
         "id": "oracul of ful moon",
-        "link": "src/data/fullMoon/cards/",
+        "link": "src/public/fullMoon/cards/",
         "alt": "Карты 'Оракул Полной Луны'"
     }
 ]

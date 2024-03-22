@@ -14,8 +14,6 @@ dist-ssr
 
 assets
 
-data/food.body.emotions/instructions*
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -4,7 +4,7 @@ import Modal from './modal/Modal';
 import { Link } from 'react-router-dom';
 import ACTIONS from '../socket/actions';
 import socket from '../socket';
-import decks from "../data/decks.json" 
+import decks from "../public/decks.json" 
 import { observer } from 'mobx-react';
 import { v4 } from 'uuid';
 

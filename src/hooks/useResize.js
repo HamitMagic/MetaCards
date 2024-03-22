@@ -47,7 +47,7 @@ export function useResize() {
         .draggable({
             listeners: { 
                 move: window.dragMoveListener,
-                move (event) {
+                move(event) {
                     position.x += event.dx;
                     position.y += event.dy;
               
